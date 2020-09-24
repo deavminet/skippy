@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"Tristan B. Kildaire"
+	],
+	"copyright": "Copyright © 2020, Tristan B. Kildaire",
+	"dependencies": {
+		"tristanable": "~>0.0.27"
+	},
+	"description": "dnet client",
+	"license": "GPLv3",
+	"name": "dnet-skippy"
+}
