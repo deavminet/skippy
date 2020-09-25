@@ -2,6 +2,7 @@ import tristanable.manager : Manager;
 import std.socket;
 import std.stdio;
 import std.conv : to;
+import std.string : split;
 
 public class DClient
 {
@@ -52,6 +53,23 @@ public class DClient
 		byte[] resp = manager.receiveMessage(1);
 
 		return cast(bool)resp[0];
+	}
+
+	public string[] list()
+	{
+		string[] channels;
+
+		byte[] data = [6];
+
+		manager.sendMessage(1, data);
+		byte[] resp = manager.receiveMessage(1);
+
+		string channelList = cast(string)resp[1..resp.length];
+		channels = split(channelList);
+
+		/* TODO: Throw error on resp[0] zero */
+
+		return channels;
 	}
 
 	public Manager getManager()

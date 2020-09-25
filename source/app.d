@@ -70,6 +70,12 @@ void commandLine()
 				writeln("Auth bad");
 			}
 		}
+		/* If the command is `list` */
+		else if(cmp(command, "list") == 0)
+		{
+			string[] channels = client.list();
+			writeln(channels);
+		}
 		/* If the command is `join` */
 		else if(cmp(command, "join") == 0)
 		{

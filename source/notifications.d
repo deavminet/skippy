@@ -33,10 +33,23 @@ public class NotificationWatcher : Thread
 					writeln(notificationReply.getData());
 					string msg = cast(string)notificationReply.getData();
 					writeln("!> "~msg);
+					process(notificationReply.getData());
 				}
 			}
 
 			Thread.getThis().sleep(dur!("seconds")(2));
 		}
+	}
+
+	/**
+	* Processes an incoming notification
+	* accordingly
+	*/
+	private void process(byte[] data)
+	{
+		/* TODO: Implement me */
+
+		/* TODO: Check notification type */
+		byte notificationType = data[0];
 	}
 }
