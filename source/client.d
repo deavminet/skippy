@@ -28,16 +28,40 @@ public class DClient
 		writeln(manager.receiveMessage(1));
 	}
 
-	public void auth(string username, string password)
+	public bool auth(string username, string password)
 	{
 		byte[] data = [0];
 		data ~= cast(byte)username.length;
 		data ~= username;
 		data ~= password;
-		writeln(data);
+
 		manager.sendMessage(1, data);
 		byte[] resp = manager.receiveMessage(1);
-		writeln("auth resp: "~to!(string)(resp));
+
+		return cast(bool)resp[0];
+	}
+
+
+	public bool join(string channel)
+	{
+		/* TODO: DO oneshot as protocol supports csv channels */
+		byte[] data = [3];
+		data ~= channel;
+
+		manager.sendMessage(1, data);
+		byte[] resp = manager.receiveMessage(1);
+
+		return cast(bool)resp[0];
+	}
+
+	public Manager getManager()
+	{
+		return manager;
+	}
+
+	public void sendMessage(string director, string message)
+	{
+		//
 	}
 
 	public void disconnect()

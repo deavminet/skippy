@@ -5,6 +5,7 @@ import std.socket;
 import client;
 import std.string : cmp, split, strip;
 import std.conv : to;
+import notifications;
 
 void main()
 {
@@ -16,8 +17,12 @@ void commandLine()
 	/* Current conneciton */
 	DClient client;
 
+	NotificationWatcher d;
+
 	/* The current command */
 	string commandLine;
+
+	string currentChannel;
 	
 	while(true)
 	{
@@ -47,6 +52,7 @@ void commandLine()
 
 			writeln("Connecting to "~to!(string)(addr)~"...");
 			client = new DClient(addr);
+			d = new NotificationWatcher(client.getManager());
 			writeln("Connected!");
 		}
 		/* If the command is `auth` */
@@ -55,13 +61,44 @@ void commandLine()
 			string username = elements[1];
 			string password = elements[2];
 
-			client.auth(username, password);
+			if(client.auth(username, password))
+			{
+				writeln("Auth good");
+			}
+			else
+			{
+				writeln("Auth bad");
+			}
+		}
+		/* If the command is `join` */
+		else if(cmp(command, "join") == 0)
+		{
+			string[] channels = elements[1..elements.length];
+
+			foreach(string channel; channels)
+			{
+				if(client.join(channel))
+				{
+					writeln("Already present in channel "~channel);
+				}
+			}
+
+			currentChannel = elements[elements.length-1];
+		}
+		/* If the command is `msg` */
+		else if(cmp(command, "open") == 0)
+		{
+			
+		}
+		else
+		{
+			//client.sendMessage()
 		}
 	}
 
 	if(client)
 	{
-		
+		client.disconnect();
 	}
 	
 }
