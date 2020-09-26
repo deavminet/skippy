@@ -2,7 +2,34 @@
 	"servers" : {
 		"dserv" : {
 			"address" : "127.0.0.1",
-			"port" : "7777"
+			"port" : "7777",
+			"auth" : {
+				"username" : "deavmi",
+				"password" : "caskdUsesMusl"
+			},
+			"channels" : [
+				"general",
+				"programming",
+				"japanese-tenticle-porn",
+				"narga_h",
+				"java",
+				"d",
+				"alan",
+				"mypeepeeishard",
+				"bababooey",
+				"i'll",
+				"have",
+				"two",
+				"number",
+				"nines",
+				"a",
+				"number nine large",
+				"two with cheese",
+				"one with extra dip",
+				"to number 45s",
+				"and a large",
+				"soda"
+			]
 		}
 	}
 }
