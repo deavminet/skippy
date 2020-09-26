@@ -188,4 +188,7 @@ void loadConfig(string configPath)
 	byte[] buffer;
 	buffer.length = file.size();
 	buffer = file.rawRead(buffer);
+	file.close();
+
+	config = parseJSON(cast(string)buffer);
 }
