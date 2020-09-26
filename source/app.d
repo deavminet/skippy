@@ -172,6 +172,8 @@ void defaultConfig()
 	JSONValue dserv;
 	dserv["address"] = "127.0.0.1";
 	dserv["port"] = "7777";
+	// JSONValue[] joins = []
+	// dserv["joins"] =
 	serverBlock["dserv"] = dserv;
 
 	config["servers"] = serverBlock;
@@ -180,4 +182,10 @@ void defaultConfig()
 void loadConfig(string configPath)
 {
 	/* TODO: Implement me */
+	File file;
+	file.open(configPath);
+
+	byte[] buffer;
+	buffer.length = file.size();
+	buffer = file.rawRead(buffer);
 }
