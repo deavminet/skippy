@@ -64,6 +64,10 @@ void commandLine()
 		/* If the command is `connect` */
 		else if(cmp(command, "connect") == 0)
 		{
+			string address;
+			string port;
+			Address addr;
+		
 			/* If there is only one argument then it is a server name */
 			if(elements.length == 2)
 			{
@@ -73,29 +77,33 @@ void commandLine()
 				{
 					/* Get the address and port */
 					JSONValue serverInfo = config["servers"][serverName];
+					address = serverInfo["address"].str();
+					port = serverInfo["port"].str();
 				}
 				catch(JSONException e)
 				{
 					writeln("Could not find server: "~to!(string)(e));
+					continue;
 				}
 			}
 			/* Then it must be `<address> <port>` */
 			else if(elements.length == 3)
 			{
-				string address = elements[1];
-				string port = elements[2];
-				Address addr = parseAddress(address, to!(ushort)(port));
-
-				writeln("Connecting to "~to!(string)(addr)~"...");
-				client = new DClient(addr);
-				d = new NotificationWatcher(client.getManager());
-				writeln("Connected!");
+				address = elements[1];
+				port = elements[2];
 			}
 			/* Syntax error */
 			else
 			{
 				writeln("Syntax error");
+				continue;
 			}
+
+			addr = parseAddress(address, to!(ushort)(port));
+			writeln("Connecting to "~to!(string)(addr)~"...");
+			client = new DClient(addr);
+			d = new NotificationWatcher(client.getManager());
+			writeln("Connected!");
 		}
 		/* If the command is `auth` */
 		else if(cmp(command, "auth") == 0)
@@ -161,7 +169,10 @@ void defaultConfig()
 	JSONValue serverBlock;
 
 	/* TODO: Remove test servers? */
-	serverBlock["dserv"] = "";
+	JSONValue dserv;
+	dserv["address"] = "127.0.0.1";
+	dserv["port"] = "7777";
+	serverBlock["dserv"] = dserv;
 
 	config["servers"] = serverBlock;
 }
