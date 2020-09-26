@@ -65,7 +65,7 @@ public class DClient
 		byte[] resp = manager.receiveMessage(1);
 
 		string channelList = cast(string)resp[1..resp.length];
-		channels = split(channelList);
+		channels = split(channelList, ",");
 
 		/* TODO: Throw error on resp[0] zero */
 
