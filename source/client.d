@@ -102,7 +102,7 @@ public class DClient
 	public bool sendMessage(bool isUser, string location, string message)
 	{
 		/* The protocol data to send */
-		byte[] protocolData;
+		byte[] protocolData = [5];
 
 		/**
 		* If we are sending to a user then the
@@ -112,6 +112,12 @@ public class DClient
 		* Here we encode that
 		*/
 		protocolData ~= [!isUser];
+
+		/* Encode the length of `location` */
+		protocolData ~= [cast(byte)location.length];
+
+		/* Encode the user/channel name */
+		protocolData ~= cast(byte[])location;
 
 		/* Encode the message */
 		protocolData ~= cast(byte[])message;
