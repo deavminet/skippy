@@ -31,12 +31,16 @@ public class DClient
 
 	public bool auth(string username, string password)
 	{
+		/* The protocol data to send */
 		byte[] data = [0];
 		data ~= cast(byte)username.length;
 		data ~= username;
 		data ~= password;
 
+		/* Send the protocol data */
 		manager.sendMessage(1, data);
+
+		/* Receive the server's response */
 		byte[] resp = manager.receiveMessage(1);
 
 		return cast(bool)resp[0];
@@ -46,10 +50,15 @@ public class DClient
 	public bool join(string channel)
 	{
 		/* TODO: DO oneshot as protocol supports csv channels */
+
+		/* The protocol data to send */
 		byte[] data = [3];
 		data ~= channel;
 
+		/* Send the protocol data */
 		manager.sendMessage(1, data);
+
+		/* Receive the server's response */
 		byte[] resp = manager.receiveMessage(1);
 
 		return cast(bool)resp[0];
@@ -59,9 +68,13 @@ public class DClient
 	{
 		string[] channels;
 
+		/* The protocol data to send */
 		byte[] data = [6];
 
+		/* Send the protocol data */
 		manager.sendMessage(1, data);
+
+		/* Receive the server's response */
 		byte[] resp = manager.receiveMessage(1);
 
 		string channelList = cast(string)resp[1..resp.length];
@@ -77,9 +90,34 @@ public class DClient
 		return manager;
 	}
 
-	public void sendMessage(string director, string message)
+	/**
+	* Sends a message to either a channel of user
+	*
+	* @param isUser whether or not we are sending to
+	* a user, true if user, false if channel
+	* @param location the username/channel to send to
+	* @param message the message to send
+	* @returns bool whether the send worked or not
+	*/
+	public void sendMessage(bool isUser, string location, string message)
 	{
-		//
+		/* The protocol data to send */
+		byte[] protocolData;
+
+		/**
+		* If we are sending to a user then the
+		* type field is 0, however if to a channel
+		* then it is one
+		*
+		* Here we encode that
+		*/
+		protocolData ~= [!isUser];
+
+		/* Encode the message */
+		protocolData ~= cast(byte[])message;
+
+		/* Send the protocol data */
+		manager.sendMessage(1, protocolData);
 	}
 
 	public void disconnect()
