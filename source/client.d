@@ -99,7 +99,7 @@ public class DClient
 	* @param message the message to send
 	* @returns bool whether the send worked or not
 	*/
-	public void sendMessage(bool isUser, string location, string message)
+	public bool sendMessage(bool isUser, string location, string message)
 	{
 		/* The protocol data to send */
 		byte[] protocolData;
@@ -118,6 +118,11 @@ public class DClient
 
 		/* Send the protocol data */
 		manager.sendMessage(1, protocolData);
+
+		/* Receive the server's response */
+		byte[] resp = manager.receiveMessage(1);
+
+		return cast(bool)resp[0];
 	}
 
 	public void disconnect()
