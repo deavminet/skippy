@@ -219,14 +219,18 @@ void defaultConfig()
 
 void loadConfig(string configPath)
 {
-	/* TODO: Implement me */
+	/* Open the provided configuration file */
 	File file;
 	file.open(configPath);
 
+	/* Read the configuration file */
 	byte[] buffer;
 	buffer.length = file.size();
 	buffer = file.rawRead(buffer);
+
+	/* Close the file */
 	file.close();
 
+	/* Parse the JSON of the configuration file */
 	config = parseJSON(cast(string)buffer);
 }
