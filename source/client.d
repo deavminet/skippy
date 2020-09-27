@@ -14,7 +14,7 @@ public class DClient
 	this(Address address)
 	{
 		/* Initialize the socket */
-		Socket socket = new Socket(AddressFamily.INET, SocketType.STREAM, ProtocolType.TCP);
+		Socket socket = new Socket(address.addressFamily, SocketType.STREAM, ProtocolType.TCP);
 		socket.connect(address);
 		
 		/* Initialize the manager */

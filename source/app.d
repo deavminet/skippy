@@ -11,15 +11,20 @@ import std.json;
 
 JSONValue config;
 
+/* Current conneciton */
+DClient dclient;
 
+NotificationWatcher dnotifications;
+	
 void main()
 {
-	/* Check if the default config exists */
-	if(exists("/home/deavmi/.config/skippy/config")) /* TODO: Change */
+	/* If the configuration file exists */
+	if(exists("config.example")) /* TODO: Change */
 	{
 		/* Load the config */
-		loadConfig("/home/deavmi/.config/skippy/config");
+		loadConfig("config.example");
 	}
+	/* If the configuration file doesn't exist */
 	else
 	{
 		/* Set default config */
@@ -30,12 +35,21 @@ void main()
 	commandLine();
 }
 
+void clientAuth(string username, string password)
+{
+	if(dclient.auth(username, password))
+	{
+		writeln("Auth good");
+	}
+	else
+	{
+		writeln("Auth bad");
+	}
+}
+
 void commandLine()
 {
-	/* Current conneciton */
-	DClient client;
-
-	NotificationWatcher d;
+	
 
 	/* The current command */
 	string commandLine;
@@ -67,6 +81,7 @@ void commandLine()
 			string address;
 			string port;
 			Address addr;
+			bool isConfigConnect;
 		
 			/* If there is only one argument then it is a server name */
 			if(elements.length == 2)
@@ -79,6 +94,8 @@ void commandLine()
 					JSONValue serverInfo = config["servers"][serverName];
 					address = serverInfo["address"].str();
 					port = serverInfo["port"].str();
+
+					isConfigConnect = true;
 				}
 				catch(JSONException e)
 				{
@@ -99,11 +116,26 @@ void commandLine()
 				continue;
 			}
 
-			addr = parseAddress(address, to!(ushort)(port));
+			/* TODO: How many are rtuend and which to use ? */
+			addr = getAddress(address, to!(ushort)(port))[0];
 			writeln("Connecting to "~to!(string)(addr)~"...");
-			client = new DClient(addr);
-			d = new NotificationWatcher(client.getManager());
+			dclient = new DClient(addr);
+			dnotifications= new NotificationWatcher(dclient.getManager());
 			writeln("Connected!");
+
+			if(isConfigConnect)
+			{
+				string server = elements[1];
+
+				string username = config["servers"][server]["auth"]["username"].str();
+				string password = config["servers"][server]["auth"]["password"].str();
+
+				/* Authenticate the user */
+				clientAuth(username, password);
+				
+				/* Auto join config */
+				configAutoJoin(server);
+			}
 		}
 		/* If the command is `auth` */
 		else if(cmp(command, "auth") == 0)
@@ -111,19 +143,13 @@ void commandLine()
 			string username = elements[1];
 			string password = elements[2];
 
-			if(client.auth(username, password))
-			{
-				writeln("Auth good");
-			}
-			else
-			{
-				writeln("Auth bad");
-			}
+			/* Authenticate the user */
+			clientAuth(username, password);
 		}
 		/* If the command is `list` */
-		else if(cmp(command, "list") == 0)
+		else if(cmp(command, "list") == 0 || cmp(command, "l") == 0)
 		{
-			string[] channels = client.list();
+			string[] channels = dclient.list();
 			writeln("Channels ("~to!(string)(channels.length)~" total)\n");
 			foreach(string channel; channels)
 			{
@@ -137,7 +163,7 @@ void commandLine()
 
 			foreach(string channel; channels)
 			{
-				if(client.join(channel))
+				if(dclient.join(channel))
 				{
 					writeln("Already present in channel "~channel);
 				}
@@ -156,11 +182,23 @@ void commandLine()
 		}
 	}
 
-	if(client)
+	if(dclient)
 	{
-		client.disconnect();
+		dclient.disconnect();
 	}
 	
+}
+
+void configAutoJoin(string server)
+{
+	foreach(JSONValue value; config["servers"][server]["channels"].array())
+	{
+		string channel = value.str();
+		if(dclient.join(channel))
+		{
+			writeln("Already present in channel "~channel);
+		}
+	}
 }
 
 void defaultConfig()

@@ -1,7 +1,7 @@
 {
 	"servers" : {
 		"dserv" : {
-			"address" : "127.0.0.1",
+			"address" : "memyselfandi",
 			"port" : "7777",
 			"auth" : {
 				"username" : "deavmi",
