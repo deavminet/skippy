@@ -1,10 +1,72 @@
 {
 	"servers" : {
-		"dserv" : {
+		"dserv1" : {
 			"address" : "memyselfandi",
 			"port" : "7777",
 			"auth" : {
-				"username" : "deavmi",
+				"username" : "deavmi1",
+				"password" : "caskdUsesMusl"
+			},
+			"channels" : [
+				"general",
+				"programming",
+				"japanese-tenticle-porn",
+				"narga_h",
+				"java",
+				"d",
+				"alan",
+				"mypeepeeishard",
+				"bababooey",
+				"i'll",
+				"have",
+				"two",
+				"number",
+				"nines",
+				"a",
+				"number nine large",
+				"two with cheese",
+				"one with extra dip",
+				"to number 45s",
+				"and a large",
+				"soda"
+			]
+		},
+		"dserv2" : {
+			"address" : "memyselfandi",
+			"port" : "7777",
+			"auth" : {
+				"username" : "deavmi2",
+				"password" : "caskdUsesMusl"
+			},
+			"channels" : [
+				"general",
+				"programming",
+				"japanese-tenticle-porn",
+				"narga_h",
+				"java",
+				"d",
+				"alan",
+				"mypeepeeishard",
+				"bababooey",
+				"i'll",
+				"have",
+				"two",
+				"number",
+				"nines",
+				"a",
+				"number nine large",
+				"two with cheese",
+				"one with extra dip",
+				"to number 45s",
+				"and a large",
+				"soda"
+			]
+		},
+		"dserv3" : {
+			"address" : "memyselfandi",
+			"port" : "7777",
+			"auth" : {
+				"username" : "deavm3i",
 				"password" : "caskdUsesMusl"
 			},
 			"channels" : [
