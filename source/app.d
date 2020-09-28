@@ -1,5 +1,4 @@
 import std.stdio;
-
 import tristanable.manager;
 import std.socket;
 import client;
@@ -194,6 +193,8 @@ void configAutoJoin(string server)
 	foreach(JSONValue value; config["servers"][server]["channels"].array())
 	{
 		string channel = value.str();
+		//import core.thread;
+		//Thread.getThis().sleep(dur!("seconds")(1));
 		if(dclient.join(channel))
 		{
 			writeln("Already present in channel "~channel);

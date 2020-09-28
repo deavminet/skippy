@@ -38,6 +38,8 @@ public class NotificationWatcher : Thread
 				}
 			}
 
+			writeln("bababbaba");
+
 			Thread.getThis().sleep(dur!("seconds")(2));
 		}
 	}

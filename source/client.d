@@ -11,6 +11,8 @@ public class DClient
 	*/
 	private Manager manager;
 
+
+	private long i = 20;
 	this(Address address)
 	{
 		/* Initialize the socket */
@@ -38,10 +40,11 @@ public class DClient
 		data ~= password;
 
 		/* Send the protocol data */
-		manager.sendMessage(1, data);
+		manager.sendMessage(i, data);
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(1);
+		byte[] resp = manager.receiveMessage(i);
+		i++;
 
 		return cast(bool)resp[0];
 	}
@@ -56,31 +59,36 @@ public class DClient
 		data ~= channel;
 
 		/* Send the protocol data */
-		manager.sendMessage(1, data);
+		manager.sendMessage(i, data);
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(1);
+		byte[] resp = manager.receiveMessage(i);
+		i++;
 
 		return cast(bool)resp[0];
 	}
 
+	
+
 	public string[] list()
 	{
+		//static ulong i = 50;
 		string[] channels;
 
 		/* The protocol data to send */
 		byte[] data = [6];
 
 		/* Send the protocol data */
-		manager.sendMessage(1, data);
+		manager.sendMessage(i, data);
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(1);
+		byte[] resp = manager.receiveMessage(i);
 
 		string channelList = cast(string)resp[1..resp.length];
 		channels = split(channelList, ",");
 
 		/* TODO: Throw error on resp[0] zero */
+		i++;
 
 		return channels;
 	}
@@ -123,11 +131,11 @@ public class DClient
 		protocolData ~= cast(byte[])message;
 
 		/* Send the protocol data */
-		manager.sendMessage(1, protocolData);
+		manager.sendMessage(i, protocolData);
 
 		/* Receive the server's response */
-		byte[] resp = manager.receiveMessage(1);
-
+		byte[] resp = manager.receiveMessage(i);
+		i++;
 		return cast(bool)resp[0];
 	}
 
