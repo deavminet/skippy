@@ -51,5 +51,12 @@ public class NotificationWatcher : Thread
 
 		/* TODO: Check notification type */
 		byte notificationType = data[0];
+
+		/* Channel notification (ntype=1) */
+		if(notificationType == cast(byte)1)
+		{
+			/* TODO: Get the username of the user that left */
+			writeln("user left");
+		}
 	}
 }
