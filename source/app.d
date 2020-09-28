@@ -14,7 +14,9 @@ JSONValue config;
 DClient dclient;
 
 NotificationWatcher dnotifications;
-	
+
+Mode currentMode;
+
 void main()
 {
 	/* If the configuration file exists */
@@ -46,6 +48,13 @@ void clientAuth(string username, string password)
 	}
 }
 
+public enum Mode
+{
+	CHANNEL,
+	USER,
+	SERVER
+}
+
 void commandLine()
 {
 	
@@ -58,7 +67,7 @@ void commandLine()
 	while(true)
 	{
 		/* Read in a command line */
-		write("> ");
+		write(currentChannel~"~> ");
 		commandLine = readln();
 
 		if(cmp(strip(commandLine), "") == 0)
@@ -170,14 +179,30 @@ void commandLine()
 
 			currentChannel = elements[elements.length-1];
 		}
-		/* If the command is `msg` */
-		else if(cmp(command, "open") == 0)
+		/* If the command is `query` */
+		else if(cmp(command, "query") == 0)
 		{
+			string user = elements[1];
+			
+			currentChannel = user;
+
+			currentMode = Mode.USER;
 			
 		}
 		else
 		{
-			dclient.sendMessage(false, currentChannel, strip(commandLine));
+			/* If the current mode is `channel` then send to channel */
+			if(currentMode == Mode.CHANNEL)
+			{
+				/* Send the current commandLine to the channel */
+				dclient.sendMessage(false, currentChannel, strip(commandLine));
+			}
+			/* If the current mode is `user` then send to the user */
+			else if(currentMode == Mode.USER)
+			{
+				dclient.sendMessage(true, currentChannel, strip(commandLine));
+			}
+			
 		}
 	}
 
