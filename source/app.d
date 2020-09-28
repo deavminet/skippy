@@ -178,7 +178,7 @@ void commandLine()
 		}
 		else
 		{
-			dclient.sendMessage(false, currentChannel, commandLine);
+			dclient.sendMessage(false, currentChannel, strip(commandLine));
 		}
 	}
 
