@@ -2,7 +2,7 @@
 	"fileVersion": 1,
 	"versions": {
 		"bformat": "1.0.8",
-		"libdnet": "0.0.2",
+		"libdnet": "0.0.3",
 		"tristanable": "0.0.33"
 	}
 }

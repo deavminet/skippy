@@ -161,7 +161,9 @@ void commandLine()
 			writeln("Channels ("~to!(string)(channels.length)~" total)\n");
 			foreach(string channel; channels)
 			{
-				writeln("\t"~channel);
+				write("\t"~channel~" (");
+				ulong memberCount = dclient.getMemberCount(channel);
+				writeln(to!(string)(memberCount)~")");
 			}
 		}
 		/* If the command is `join` */
