@@ -16,6 +16,14 @@ public final class DClient
 	/* TODO: Reason is after use they do not get deleted, only later by garbage collector */
 	/* TODO: To prevent weird stuff from possibly going down, we use unique ones each time */
 	private long i = 20;
+
+	/**
+	* Constructs a new DClient and connects
+	* it to the given endpoint Address
+	*
+	* @param address the endpoint (server) to
+	* connect to
+	*/
 	this(Address address)
 	{
 		/* Initialize the socket */
@@ -24,14 +32,6 @@ public final class DClient
 		
 		/* Initialize the manager */
 		manager = new Manager(socket);
-
-		//init();
-	}
-
-	public void init()
-	{
-		manager.sendMessage(1, [0,4,65,66,66,65,69,69]);
-		writeln(manager.receiveMessage(1));
 	}
 
 	public bool auth(string username, string password)
