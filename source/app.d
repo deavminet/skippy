@@ -182,12 +182,14 @@ void commandLine()
 		/* If the command is `query` */
 		else if(cmp(command, "query") == 0)
 		{
+			/* Get the username to query */
 			string user = elements[1];
-			
+
+			/* Set current "channel" to username */
 			currentChannel = user;
 
+			/* Set mode to USER */
 			currentMode = Mode.USER;
-			
 		}
 		else
 		{
@@ -208,6 +210,7 @@ void commandLine()
 
 	if(dclient)
 	{
+		/* TODO: Fix in tristanable */
 		dclient.disconnect();
 	}
 	

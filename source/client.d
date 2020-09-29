@@ -4,7 +4,7 @@ import std.stdio;
 import std.conv : to;
 import std.string : split;
 
-public class DClient
+public final class DClient
 {
 	/**
 	* tristanabale tag manager
@@ -12,6 +12,9 @@ public class DClient
 	private Manager manager;
 
 
+	/* TODO: Tristsnable doesn't, unlike my java version, let youn really reuse tags */
+	/* TODO: Reason is after use they do not get deleted, only later by garbage collector */
+	/* TODO: To prevent weird stuff from possibly going down, we use unique ones each time */
 	private long i = 20;
 	this(Address address)
 	{
@@ -50,6 +53,13 @@ public class DClient
 	}
 
 
+	/**
+	* Joins the given channel
+	*
+	* @param channel the channel to join
+	* @returns bool true if the join was
+	* successful, false otherwise
+	*/
 	public bool join(string channel)
 	{
 		/* TODO: DO oneshot as protocol supports csv channels */
@@ -68,11 +78,15 @@ public class DClient
 		return cast(bool)resp[0];
 	}
 
-	
+	/**
+	* Lists all the channels on the server
+	*
+	* @returns string[] the list of channels
+	*/
 
 	public string[] list()
 	{
-		//static ulong i = 50;
+		/* List of channels */
 		string[] channels;
 
 		/* The protocol data to send */
@@ -84,10 +98,14 @@ public class DClient
 		/* Receive the server's response */
 		byte[] resp = manager.receiveMessage(i);
 
-		string channelList = cast(string)resp[1..resp.length];
-		channels = split(channelList, ",");
+		/* Only generate a list if command was successful */
+		if(resp[0])
+		{
+			/* Generate the channel list */
+			string channelList = cast(string)resp[1..resp.length];
+			channels = split(channelList, ",");
+		}
 
-		/* TODO: Throw error on resp[0] zero */
 		i++;
 
 		return channels;
