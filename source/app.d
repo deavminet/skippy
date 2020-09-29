@@ -1,7 +1,7 @@
 import std.stdio;
 import tristanable.manager;
 import std.socket;
-import client;
+import libdnet.dclient : DClient;
 import std.string : cmp, split, strip;
 import std.conv : to;
 import notifications;
@@ -211,7 +211,7 @@ void commandLine()
 	if(dclient)
 	{
 		/* TODO: Fix in tristanable */
-		dclient.disconnect();
+		dclient.close();
 	}
 	
 }
