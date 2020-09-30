@@ -166,6 +166,12 @@ void commandLine()
 				writeln(to!(string)(memberCount)~")");
 			}
 		}
+		/* If the command is `names` */
+		else if(cmp(command, "names") == 0)
+		{
+			string[] members = dclient.getMembers(currentChannel);
+			writeln(members);
+		}
 		/* If the command is `join` */
 		else if(cmp(command, "join") == 0)
 		{

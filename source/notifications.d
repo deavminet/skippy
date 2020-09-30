@@ -28,12 +28,12 @@ public class NotificationWatcher : Thread
 
 			if(notifications.length)
 			{
-				writeln(notifications);
+				//writeln(notifications);
 				foreach(NotificationReply notificationReply; notifications)
 				{
-					writeln(notificationReply.getData());
+					//writeln(notificationReply.getData());
 					string msg = cast(string)notificationReply.getData();
-					writeln("!> "~msg);
+					//writeln("!> "~msg);
 					process(notificationReply.getData());
 				}
 			}
@@ -64,7 +64,7 @@ public class NotificationWatcher : Thread
 		{
 			/* TODO: Decode using tristanable */
 			/* TODO: Get the username of the user that left */
-			writeln("user left/join message");
+			//writeln("user left/join message");
 
 			/* Get the sub-type */
 			byte subType = data[1];
