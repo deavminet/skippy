@@ -9,5 +9,6 @@
 	},
 	"description": "dnet client",
 	"license": "GPLv3",
-	"name": "dnet-skippy"
+	"name": "dnet-skippy",
+	"targetPath": "bin"
 }
