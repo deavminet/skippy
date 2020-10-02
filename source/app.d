@@ -229,7 +229,7 @@ void commandLine()
 
 void serverGreet()
 {
-	string motd = dclient.motd();
+	string motd = dclient.getMotd();
 	writeln("!~> "~motd);
 }
 
