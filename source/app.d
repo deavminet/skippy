@@ -131,6 +131,9 @@ void commandLine()
 			dnotifications= new NotificationWatcher(dclient.getManager());
 			writeln("Connected!");
 
+			/* Get the message of the day */
+			serverGreet();
+
 			if(isConfigConnect)
 			{
 				string server = elements[1];
@@ -222,6 +225,12 @@ void commandLine()
 		dclient.close();
 	}
 	
+}
+
+void serverGreet()
+{
+	string motd = dclient.motd();
+	writeln("!~> "~motd);
 }
 
 void configAutoJoin(string server)
