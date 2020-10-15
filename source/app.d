@@ -1,5 +1,5 @@
 import std.stdio;
-import tristanable.manager;
+//import tristanable.manager;
 import std.socket;
 import libdnet.dclient : DClient;
 import std.string : cmp, split, strip;
