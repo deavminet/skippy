@@ -33,7 +33,7 @@ public class NotificationWatcher : Thread
 				{
 					//writeln(notificationReply.getData());
 					string msg = cast(string)notificationReply.getData();
-					//writeln("!> "~msg);
+					writeln("!> "~msg);
 					process(notificationReply.getData());
 				}
 			}
