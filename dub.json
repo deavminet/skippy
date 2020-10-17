@@ -4,7 +4,7 @@
 	],
 	"copyright": "Copyright © 2020, Tristan B. Kildaire",
 	"dependencies": {
-		"libdnet": "~>0.1.4"
+		"libdnet": "~>0.1.5"
 	},
 	"description": "dnet client",
 	"license": "GPLv3",
