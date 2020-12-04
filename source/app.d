@@ -13,7 +13,7 @@ JSONValue config;
 /* Current conneciton */
 DClient dclient;
 
-//NotificationWatcher dnotifications;
+NotificationWatcher dnotifications;
 
 Mode currentMode;
 
@@ -128,7 +128,7 @@ void commandLine()
 			addr = getAddress(address, to!(ushort)(port))[0];
 			writeln("Connecting to "~to!(string)(addr)~"...");
 			dclient = new DClient(addr);
-			dnotifications= new NotificationWatcher(dclient);
+			dnotifications = new NotificationWatcher(dclient);
 			writeln("Connected!");
 
 			/* Get the message of the day */
