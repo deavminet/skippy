@@ -22,24 +22,11 @@ public class NotificationWatcher : Thread
 	{
 		while(true)
 		{
-			/* Check for notifications every 2 seconds */
-			NotificationReply[] notifications =manager.popNotifications();
+			/* Await a notification */
+            byte[] notification = manager.awaitNotification();
+			process(notification);
 
-			if(notifications.length)
-			{
-				//writeln(notifications);
-				foreach(NotificationReply notificationReply; notifications)
-				{
-					//writeln(notificationReply.getData());
-
-                    /* Await a notification */
-                    manager.awaitNotification();
-					string msg = cast(string)notificationReply.getData();
-					writeln("!> "~msg);
-					process(notificationReply.getData());
-				}
-			}
-
+            /* TODO: Below? */
 			Thread.getThis().sleep(dur!("seconds")(2));
 		}
 	}
