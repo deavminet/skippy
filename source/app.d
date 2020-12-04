@@ -4,7 +4,7 @@ import std.socket;
 import libdnet.dclient : DClient;
 import std.string : cmp, split, strip;
 import std.conv : to;
-// import notifications;
+import notifications;
 import std.file;
 import std.json;
 
