@@ -1,9 +1,9 @@
 import core.thread : Thread;
 import tristanable.manager;
-import tristanable.notifications;
 import std.stdio;
 import core.time : dur;
 import tristanable.encoding;
+import libdnet.dclient : DClient;
 
 public class NotificationWatcher : Thread
 {
@@ -23,7 +23,7 @@ public class NotificationWatcher : Thread
 		while(true)
 		{
 			/* Await a notification */
-            byte[] notification = manager.awaitNotification();
+            byte[] notification = client.awaitNotification();
 			process(notification);
 		}
 	}
