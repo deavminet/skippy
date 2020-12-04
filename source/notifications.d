@@ -26,7 +26,7 @@ public class NotificationWatcher : Thread
             byte[] notification = manager.awaitNotification();
 			process(notification);
 
-            /* TODO: Below? */
+            /* TODO: Below? Seperate mutex, so this should be removed, let it spin */
 			Thread.getThis().sleep(dur!("seconds")(2));
 		}
 	}
