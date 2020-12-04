@@ -9,13 +9,12 @@ public class NotificationWatcher : Thread
 {
 	private DClient client;
 
-	this(DClient manager)
+	this(DClient client)
 	{
 		super(&worker);
-	
-		this.manager = manager;
-		manager.reserveTag(0);
+		this.client = client;
 
+        /* Start the notification watcher */
 		start();
 	}
 
