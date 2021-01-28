@@ -44,6 +44,8 @@ public class NotificationWatcher : Thread
 		{
 			/* TODO: Decode using tristanable */
 			writeln("new message");
+
+			/* TODO: CHeck sub-type here */
 		}
 		/* Channel notification (ntype=1) */
 		else if(notificationType == cast(byte)1)

@@ -3,6 +3,6 @@
 	"versions": {
 		"bformat": "1.0.8",
 		"libdnet": "0.1.17",
-		"tristanable": "0.1.1"
+		"tristanable": "2.2.0"
 	}
 }
